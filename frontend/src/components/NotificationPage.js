@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
+import API from "../utils/api";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { IoClose } from "react-icons/io5"; // optional: modern close icon
 
@@ -9,7 +10,7 @@ const NotificationsPanel = ({ token, closePanel }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/notifications", {
+        const res = await API.get(`/notifications`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const sorted = res.data.sort(
@@ -26,8 +27,8 @@ const NotificationsPanel = ({ token, closePanel }) => {
 
   const handleDecision = async (requestId, decision) => {
     try {
-      await axios.patch(
-        `http://localhost:5000/api/access/request/${requestId}`,
+      await API.patch(
+        `/access/request/${requestId}`,
         { status: decision },
         { headers: { Authorization: `Bearer ${token}` } }
       );

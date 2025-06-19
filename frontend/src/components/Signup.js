@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import API from "../utils/api";
 import "./Signup.css"; // custom background styles
 
 const Signup = () => {
@@ -16,7 +16,7 @@ const Signup = () => {
     e.preventDefault();
     setError("");
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await API.post("/auth/register", {
         name,
         email,
         password,

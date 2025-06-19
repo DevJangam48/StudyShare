@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
@@ -26,7 +26,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/users/profile", {
+        const res = await API.get(`/users/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const user = res.data;
@@ -49,8 +49,8 @@ const ProfilePage = () => {
     }
 
     try {
-      const res = await axios.put(
-        "http://localhost:5000/api/users/profile",
+      const res = await API.put(
+        `/users/profile`,
         { name, currentYear, password },
         { headers: { Authorization: `Bearer ${token}` } }
       );

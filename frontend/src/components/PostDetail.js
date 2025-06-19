@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import API from "../utils/api";
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ const PostDetail = () => {
     const fetchPost = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+        const res = await API.get(`/posts/${id}`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         setPost(res.data);
@@ -24,7 +24,7 @@ const PostDetail = () => {
     };
     const fetchComments = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/comments/${id}`);
+        const res = await API.get(`/comments/${id}`);
         setComments(res.data);
       } catch {
         setComments([]);
@@ -39,15 +39,15 @@ const PostDetail = () => {
     setCommentMsg("");
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        `http://localhost:5000/api/comments/${id}`,
+      await API.post(
+        `/comments/${id}`,
         { text: commentText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setCommentText("");
       setCommentMsg("Comment added!");
       // Refresh comments
-      const res = await axios.get(`http://localhost:5000/api/comments/${id}`);
+      const res = await API.get(`/comments/${id}`);
       setComments(res.data);
     } catch {
       setCommentMsg("Failed to add comment.");

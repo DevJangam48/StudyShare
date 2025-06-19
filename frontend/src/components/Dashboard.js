@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaBell, FaUser } from "react-icons/fa";
-import axios from "axios";
+import API from "../utils/api";
 import PostList from "../components/PostList";
 import UserPanel from "../components/UserPanel";
 import NotificationPanel from "../components/NotificationPage";
@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchRecentPosts = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/public`, {
+        const res = await API.get(`posts/public`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(res.data);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiThumbsUp, FiDownload, FiShare2, FiArrowLeft } from "react-icons/fi";
 
@@ -20,7 +20,7 @@ const FullPostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+        const res = await API.get(`/posts/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPost(res.data);
@@ -41,10 +41,9 @@ const FullPostPage = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/comments/${post._id}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res = await API.get(`/comments/${post._id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setComments(res.data);
       } catch {
         setMsg("Failed to load comments.");
@@ -57,12 +56,9 @@ const FullPostPage = () => {
   useEffect(() => {
     const checkRequestStatus = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/access/request-status/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await API.get(`/access/request-status/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setRequestSent(res.data.requested);
       } catch (err) {
         console.error("Failed to check request status");
@@ -79,8 +75,8 @@ const FullPostPage = () => {
   const handleComment = async () => {
     if (!newComment.trim()) return;
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/comments/${post._id}`,
+      const res = API.post(
+        `/comments/${post._id}`,
         { text: newComment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -93,8 +89,8 @@ const FullPostPage = () => {
 
   const handleLike = async () => {
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/posts/${post._id}/like`,
+      const res = await API.post(
+        `/posts/${post._id}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -114,8 +110,8 @@ const FullPostPage = () => {
 
   const toggleVisibility = async () => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/posts/${id}/toggle-visibility`,
+      await API.put(
+        `posts/${id}/toggle-visibility`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -130,7 +126,7 @@ const FullPostPage = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+      await API.delete(`/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/dashboard");
@@ -156,8 +152,8 @@ const FullPostPage = () => {
 
   const handleRequestAccess = async () => {
     try {
-      await axios.post(
-        `http://localhost:5000/api/access/request/`,
+      await API.post(
+        `/access/request/`,
         { postId: id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

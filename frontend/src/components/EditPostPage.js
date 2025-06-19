@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API from "../utils/api";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiSave, FiTrash2 } from "react-icons/fi";
@@ -22,7 +23,7 @@ const EditPostPage = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+        const res = await API.get(`/posts/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPost(res.data);
@@ -67,8 +68,8 @@ const EditPostPage = () => {
         fileType = uploadRes.data.resource_type;
       }
 
-      const response = await axios.put(
-        `http://localhost:5000/api/posts/${id}`,
+      const response = API.post(
+        `/posts/${id}`,
         {
           title,
           description,
@@ -91,7 +92,7 @@ const EditPostPage = () => {
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+      await API.delete(`/posts/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       navigate("/dashboard");

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { FiEdit } from "react-icons/fi";
 
@@ -15,7 +15,7 @@ const PostDetailsWithAnalyticsPage = () => {
     const fetchPost = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+        const res = await API.get(`/posts/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPost(res.data);

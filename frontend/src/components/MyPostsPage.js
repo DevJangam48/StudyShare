@@ -7,7 +7,7 @@ import {
   FaUpload,
 } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const MyPostsPage = () => {
@@ -19,12 +19,9 @@ const MyPostsPage = () => {
   useEffect(() => {
     const fetchMyPosts = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:5000/api/posts/my-posts",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await API.get(`/posts/my-posts`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setMyPosts(res.data);
       } catch (err) {
         setMsg("Failed to fetch your posts.");

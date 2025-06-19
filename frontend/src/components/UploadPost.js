@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import API from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import {
   FaUpload,
@@ -41,7 +41,7 @@ const UploadPost = () => {
     formData.append("resource_type", "auto");
 
     try {
-      await axios.post("http://localhost:5000/api/posts/create", formData, {
+      await API.post(`/posts/create`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
