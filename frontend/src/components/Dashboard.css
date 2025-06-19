@@ -1,0 +1,4 @@
+/* Optional: Smooth transitions for panels */
+.floating-panel {
+  transition: all 0.3s ease-in-out;
+}
