@@ -346,7 +346,6 @@ const FullPostPage = () => {
         {/* Engagement Stats */}
         <div className="flex items-center gap-6 text-gray-600 mb-4">
           <span>👍 {likes} Likes</span>
-          <span>⬇️ {download} Downloads</span>
         </div>
 
         {/* Comment Section */}

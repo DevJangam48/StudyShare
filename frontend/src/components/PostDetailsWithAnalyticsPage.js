@@ -134,7 +134,6 @@ const PostDetailsWithAnalyticsPage = () => {
       {/* Post Analytics Section */}
       <div className="mb-8">
         <h3 className="text-xl font-semibold mb-2 flex items-center">
-          📊 Post Analytics
           <span className="text-gray-700 font-medium">👍 {likes} Likes</span>
         </h3>
         {/* Render analytics data here if needed */}

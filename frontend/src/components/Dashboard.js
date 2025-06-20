@@ -55,7 +55,7 @@ const Dashboard = () => {
           {" "}
           {/* bg removed */}
           <h2 className="text-3xl font-bold text-white drop-shadow-lg mb-4 md:mb-0">
-            📚 Student Share
+            📚 StudyShare
           </h2>
           {/* Centered Search Bar */}
           <form
